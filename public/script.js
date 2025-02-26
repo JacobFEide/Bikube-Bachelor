@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dataRef.on("value", (snapshot) => {
             const previoustemp = snapshot.val();
             document.getElementById("dataContainer").textContent = previoustemp !== null ? 
-                `Real Time Temperature: ${previoustemp}°CA` : "No data available";
+                `Real Time Temperature: ${previoustemp}°CB` : "No data available";
 
         //
         database.ref('temperatures').limitToLast(30).once('value').then(function(snapshot) {
