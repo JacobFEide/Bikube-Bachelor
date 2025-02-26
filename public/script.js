@@ -12,6 +12,44 @@ document.addEventListener('DOMContentLoaded', function () {
             const previoustemp = snapshot.val();
             document.getElementById("dataContainer").textContent = previoustemp !== null ? 
                 `Real Time Temperature: ${previoustemp}°CA` : "No data available";
+
+        //
+        database.ref('temperatures').limitToLast(30).once('value').then(function(snapshot) {
+            const data = snapshot.val();  // Hent data fra Firebase
+            const xValues = [];  // Tidspunkt (eller indekser)
+            const yValues = [];  // Temperaturdata
+
+            let i = 0;  // Bruk en teller for x-verdiene
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    xValues.push(i);  // Her kan du bruke tidsstempel eller annet ID som x-verdi
+                    yValues.push(data[key].temperature);  // Temperaturverdiene fra Firebase
+                    i++;
+                }
+            }
+
+            // Vis grafen
+            plotGraph(xValues, yValues);
+        });
+
+        // Funksjon for å vise grafen med Plotly.js
+        function plotGraph(xValues, yValues) {
+            const data = [{
+                x: xValues,
+                y: yValues,
+                mode: "lines",
+                type: "scatter"
+            }];
+
+            const layout = {
+                xaxis: {title: "Tid (dager)", range: [0, xValues.length]},  // Juster tidsskalaen
+                yaxis: {title: "Temperatur (°C)", range: [20, 50]},  // Juster temperaturintervallet
+                title: "Temperaturmålinger"
+            };
+
+            Plotly.newPlot("temperatureChart", data, layout);
+        }
+        //
         });
 
     } catch (error) {
