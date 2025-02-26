@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 `Real Time Temperature: ${previoustemp}°CB` : "No data available";
 
         //
-        database.ref('temperatures').limitToLast(30).once('value').then(function(snapshot) {
+        db.ref('temperature').limitToLast(30).once('value').then(function(snapshot) {
             const data = snapshot.val();  // Hent data fra Firebase
             const xValues = [];  // Tidspunkt (eller indekser)
             const yValues = [];  // Temperaturdata
