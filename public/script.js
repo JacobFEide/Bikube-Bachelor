@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
         dataRef.on("value", (snapshot) => {
             const previoustemp = snapshot.val();
             document.getElementById("dataContainer").textContent = previoustemp !== null ? 
-                `Real Time Temperature: ${previoustemp}°CA` : "No data available";
+                `Real Time Temperature: ${previoustemp}°CTest` : "No data available";
 
         //
-        db.ref('temperature').limitToLast(30).once('value').then(function(snapshot) {
+        /*
+        db.ref('sensor/temperature').limitToLast(30).once('value').then(function(snapshot) {
             const data = snapshot.val();  // Hent data fra Firebase
             const xValues = [];  // Tidspunkt (eller indekser)
             const yValues = [];  // Temperaturdata
@@ -49,11 +50,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             Plotly.newPlot("temperatureChart", data, layout);
         }
+        */
         //
         });
+
 
     } catch (error) {
         console.error("Firebase initialization error:", error);
         document.getElementById("dataContainer").textContent = "Error loading Firebase";
     }
+    
 });
