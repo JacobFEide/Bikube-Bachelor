@@ -1,18 +1,21 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
 body {
-    padding: 0px;
     background-color: #0098fd;
     background: url('bilde3.jpg') no-repeat center center fixed;
     background-size: cover;
-    background-clip: content-box;
     color: #333;
     font-family: Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align items to the left */
-    justify-content: flex-start; /* Align items to the top */
-    height: 100vh;
-    padding: 40px 20px; /* Optional padding for spacing */
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0; /* Remove extra padding */
 }
 
 #container {
@@ -21,7 +24,7 @@ body {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     text-align: center;
-    max-width: 5000;
+    max-width: 100%;
     width: 100%;
 }
 
