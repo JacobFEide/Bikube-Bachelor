@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 `Real Time Temperature: ${previoustemp}°CA` : "No data available";
         });
         // Henter temp fra siste 30 dager
-        const tempRef = db.ref("sensor/temperature").limitToLast(30);
+        const tempRef = db.ref("sensor/temperature").limitToLast(253);
         tempRef.once("value").then((snapshot) => {
             
             const data = snapshot.val();
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const layout = {
             xaxis: {title: "Tid (dager)", range: [0, xValues.length]},  // Juster tidsskalaen
-            yaxis: {title: "Temperatur (°C)", range: [0, 50]},  // Juster temperaturintervallet
+            yaxis: {title: "Temperatur (°C)", range: [10, 40]},  // Juster temperaturintervallet
             title: "Temperaturmålinger"
         };
 
