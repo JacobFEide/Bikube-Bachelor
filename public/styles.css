@@ -12,7 +12,7 @@ body {
     align-items: flex-start; /* Align items to the left */
     justify-content: flex-start; /* Align items to the top */
     height: 100vh;
-    padding: 20px; /* Optional padding for spacing */
+    padding: 40px 20px; /* Optional padding for spacing */
 }
 
 #container {
