@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function () {
         dataRef.on("value", (snapshot) => {
             const previoustemp = snapshot.val();
             document.getElementById("dataContainer").textContent = previoustemp !== null ? 
-                `Real Time Temperature: ${previoustemp}°CA` : "No data available";
+                `Siste måling: ${previoustemp}°C` : "No data available";
         });
         // Henter temp fra siste 30 dager
-        const tempRef = db.ref("sensor/temperature").limitToLast(253);
+        const tempRef = db.ref("sensor/temperature").limitToLast(60);
         tempRef.once("value").then((snapshot) => {
             
             const data = snapshot.val();
