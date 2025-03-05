@@ -77,7 +77,7 @@ function plotGraph(xValues, yValues) {
         title: title
     };
 
-    Plotly.newPlot("weightChart", data, layout);
+    Plotly.newPlot(chartId, data, layout);
 }
 
     } catch (error) {
