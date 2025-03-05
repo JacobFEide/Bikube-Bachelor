@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
         plotGraph(xValues, yValues, "temperatureChart", "Temperaturmålinger", "Temperatur (°C)");
     });
         // Hent vektdata fra de siste 30 dagene
-        const weightRef = db.ref("sensor/weight").limitToLast(60); // Endre til riktig database-sti
+        const weightRef = db.ref("sensor/temperature").limitToLast(60); // Endre til riktig database-sti
         weightRef.once("value").then((snapshot) => {
             const data = snapshot.val();
             if (!data) return;
