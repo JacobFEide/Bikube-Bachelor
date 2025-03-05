@@ -1,17 +1,21 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
 body {
-    padding: 0px;
     background-color: #0098fd;
     background: url('bilde3.jpg') no-repeat center center fixed;
     background-size: cover;
-    background-clip: content-box;
     color: #333;
     font-family: Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0; /* Remove extra padding */
 }
 
 #container {
@@ -20,7 +24,8 @@ body {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     text-align: center;
-    max-width: 400px;
+    max-width: 100%;
+    width: 100%;
 }
 
 #dataContainer {
