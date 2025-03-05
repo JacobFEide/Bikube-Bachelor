@@ -33,11 +33,32 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
         // Vis grafen
-        plotGraph(xValues, yValues);
+        plotGraph(xValues, yValues, "temperatureChart", "Temperaturmålinger", "Temperatur (°C)");
+    });
+        // Hent vektdata fra de siste 30 dagene
+        const weightRef = db.ref("sensor/weight").limitToLast(60); // Endre til riktig database-sti
+        weightRef.once("value").then((snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
+
+            const xValues = [];
+            const yValues = [];
+
+            let i = 0;
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    xValues.push(i);
+                    yValues.push(data[key]);
+                    i++;
+                }
+            }
+
+        // Vis vektgrafen
+        plotGraph(xValues, yValues, "weightChart", "Vektmålinger", "Vekt (kg)");
     });
 
     // Funksjon for å vise grafen med Plotly.js
-    function plotGraph(xValues, yValues) {
+    function plotGraph(xValues, yValues, chartId, title, yAxisTitle) {
         const data = [{
             x: xValues,
             y: yValues,
@@ -47,11 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const layout = {
             xaxis: {title: "Tid (dager)", range: [0, xValues.length]},  // Juster tidsskalaen
-            yaxis: {title: "Temperatur (°C)", range: [10, 40]},  // Juster temperaturintervallet
-            title: "Temperaturmålinger"
+            yaxis: {title: yAxisTitle},  // Juster intervallet
+            title: title
         };
 
-        Plotly.newPlot("temperatureChart", data, layout);
+        Plotly.newPlot(chartId, data, layout);
     }
     //
 
