@@ -17,15 +17,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const tempRef = db.ref("sensor/temperature").limitToLast(60);
         tempRef.once("value").then((snapshot) => {
             
-            const data = snapshot.val();
-            if (!data) return;
+            const tempdata = snapshot.val();
+            if (!tempdata) return;
 
             const xValues = []; // Tidspunkt
             const yValues = []; // Temperatur
 
             let i = 0;
             for (const key in data) {
-                if (data.hasOwnProperty(key)) {
+                if (tempdata.hasOwnProperty(key)) {
                     xValues.push(i);
                     yValues.push(data[key]); // Antar at verdien er direkte temperaturen
                     i++;
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Funksjon for å vise grafen med Plotly.js
     function plotGraph(xValues, yValues) {
-        const data = [{
+        const vistempdata = [{
             x: xValues,
             y: yValues,
             mode: "lines",
@@ -51,9 +51,51 @@ document.addEventListener('DOMContentLoaded', function () {
             title: "Temperaturmålinger"
         };
 
-        Plotly.newPlot("temperatureChart", data, layout);
+        Plotly.newPlot("temperatureChart", vistempdata, layout);
     }
-    //
+    // Temperatur slutter her!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    // Vekt Begynner her!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // Henter vekt fra siste 30 dager
+    const vektRef = db.ref("sensor/temperature").limitToLast(60); // endre denne "sensor/temperture" til "sensor/vekt"
+    vektRef.once("value").then((snapshot) => {
+        
+        const vektdata = snapshot.val();
+        if (!vektdata) return;
+
+        const xValues = []; // Tidspunkt
+        const yValues = []; // vekt
+
+        let i = 0;
+        for (const key in vektdata) {
+            if (vektdata.hasOwnProperty(key)) {
+                xValues.push(i);
+                yValues.push(vektdata[key]); // Antar at verdien er direkte vekten
+                i++;
+            }
+        }
+
+    // Vis grafen
+    plotGraph(xValues, yValues);
+});
+
+// Funksjon for å vise grafen med Plotly.js
+function plotGraph(xValues, yValues) {
+    const data = [{
+        x: xValues,
+        y: yValues,
+        mode: "lines",
+        type: "scatter"
+    }];
+
+    const layout = {
+        xaxis: {title: "Tid (dager)", range: [0, xValues.length]},  // Juster tidsskalaen
+        yaxis: {title: "Vekt (kg)", range: [10, 40]},  // Juster vektintervallet
+        title: "Vektmålinger"
+    };
+
+    Plotly.newPlot("weightChart", vektdata, layout);
+}
 
     } catch (error) {
         console.error("Firebase initialization error:", error);
