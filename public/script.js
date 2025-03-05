@@ -33,26 +33,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
         // Vis grafen
-        plotGraph(xValues, yValues);
+        plotGraph(xValues, yValues, "temperatureChart", "Temperaturmålinger", "Tid(dager)", "Temperatur(°C)",[10,40]);
     });
-
-    // Funksjon for å vise grafen med Plotly.js
-    function plotGraph(xValues, yValues) {
-        const data = [{
-            x: xValues,
-            y: yValues,
-            mode: "lines",
-            type: "scatter"
-        }];
-
-        const layout = {
-            xaxis: {title: "Tid (dager)", range: [0, xValues.length]},  // Juster tidsskalaen
-            yaxis: {title: "Temperatur (°C)", range: [10, 40]},  // Juster temperaturintervallet
-            title: "Temperaturmålinger"
-        };
-
-        Plotly.newPlot("temperatureChart", data, layout);
-    }
+    
     // Temperatur slutter her!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     // Vekt Begynner her!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -76,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
     // Vis grafen
-    plotGraph(xValues, yValues);
+    plotGraph(xValues, yValues, "weightChart", "Vektmålinger", "Tid (dager)", "Vekt (kg)", [0, 100]);
 });
 
 // Funksjon for å vise grafen med Plotly.js
@@ -89,9 +72,9 @@ function plotGraph(xValues, yValues) {
     }];
 
     const layout = {
-        xaxis: {title: "Tid (dager)", range: [0, xValues.length]},  // Juster tidsskalaen
-        yaxis: {title: "Vekt (kg)", range: [10, 40]},  // Juster vektintervallet
-        title: "Vektmålinger"
+        xaxis: {title: xTitle, range: [0, xValues.length]},  // Juster tidsskalaen
+        yaxis: {title: yTitle, range: [10, 40]},  // Juster vektintervallet
+        title: title
     };
 
     Plotly.newPlot("weightChart", data, layout);
