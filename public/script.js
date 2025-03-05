@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const layout = {
             xaxis: {title: "Tid (dager)", range: [0, xValues.length]},  // Juster tidsskalaen
-            yaxis: {title: "Temperatur (°C)", range: [20, 50]},  // Juster temperaturintervallet
+            yaxis: {title: "Temperatur (°C)", range: [0, 50]},  // Juster temperaturintervallet
             title: "Temperaturmålinger"
         };
 
