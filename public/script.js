@@ -17,15 +17,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const tempRef = db.ref("sensor/temperature").limitToLast(60);
         tempRef.once("value").then((snapshot) => {
             
-            const tempdata = snapshot.val();
-            if (!tempdata) return;
+            const data = snapshot.val();
+            if (!data) return;
 
             const xValues = []; // Tidspunkt
             const yValues = []; // Temperatur
 
             let i = 0;
             for (const key in data) {
-                if (tempdata.hasOwnProperty(key)) {
+                if (data.hasOwnProperty(key)) {
                     xValues.push(i);
                     yValues.push(data[key]); // Antar at verdien er direkte temperaturen
                     i++;
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Funksjon for å vise grafen med Plotly.js
     function plotGraph(xValues, yValues) {
-        const vistempdata = [{
+        const data = [{
             x: xValues,
             y: yValues,
             mode: "lines",
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             title: "Temperaturmålinger"
         };
 
-        Plotly.newPlot("temperatureChart", vistempdata, layout);
+        Plotly.newPlot("temperatureChart", data, layout);
     }
     // Temperatur slutter her!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -60,17 +60,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const vektRef = db.ref("sensor/temperature").limitToLast(60); // endre denne "sensor/temperture" til "sensor/vekt"
     vektRef.once("value").then((snapshot) => {
         
-        const vektdata = snapshot.val();
-        if (!vektdata) return;
+        const data = snapshot.val();
+        if (!data) return;
 
         const xValues = []; // Tidspunkt
         const yValues = []; // vekt
 
         let i = 0;
-        for (const key in vektdata) {
-            if (vektdata.hasOwnProperty(key)) {
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
                 xValues.push(i);
-                yValues.push(vektdata[key]); // Antar at verdien er direkte vekten
+                yValues.push(data[key]); // Antar at verdien er direkte vekten
                 i++;
             }
         }
@@ -94,7 +94,7 @@ function plotGraph(xValues, yValues) {
         title: "Vektmålinger"
     };
 
-    Plotly.newPlot("weightChart", vektdata, layout);
+    Plotly.newPlot("weightChart", data, layout);
 }
 
     } catch (error) {
